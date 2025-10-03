@@ -6,9 +6,9 @@ const mqtt = require('mqtt');
 const PORT = process.env.PORT || 8080;
 
 // MQTT Configuration
-const MQTT_BROKER = process.env.MQTT_BROKER || 'mqtts://wd9a1113.ala.us-east-1.emqxsl.com:8883';
-const MQTT_USERNAME = process.env.MQTT_USERNAME || 'rewined';
-const MQTT_PASSWORD = process.env.MQTT_PASSWORD || '577Rewined!';
+const MQTT_BROKER = process.env.MQTT_BROKER || 'mqtt://test.mosquitto.org:1883';
+const MQTT_USERNAME = process.env.MQTT_USERNAME || '';
+const MQTT_PASSWORD = process.env.MQTT_PASSWORD || '';
 
 // Connect to MQTT broker
 console.log('Connecting to MQTT broker:', MQTT_BROKER);
