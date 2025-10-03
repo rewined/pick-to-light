@@ -376,14 +376,17 @@
       ] : [0, 0, 0];
     }
 
-    // Helper: POST to WLED via proxy
-    async function postWLED(url, body) {
-      const proxyUrl = `/api/wled?host=${encodeURIComponent(url)}`;
-      console.log('🔵 Sending request via proxy to:', url);
+    // Helper: POST to WLED via MQTT
+    async function postWLED(controllerUrl, body) {
+      // Extract controller ID from URL or use default
+      const controllerId = extractControllerId(controllerUrl);
+      const mqttUrl = `/api/wled?controller=${encodeURIComponent(controllerId)}`;
+
+      console.log('🔵 Sending MQTT command to controller:', controllerId);
       console.log('📦 Request body:', JSON.stringify(body, null, 2));
 
       try {
-        const response = await fetch(proxyUrl, {
+        const response = await fetch(mqttUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body)
@@ -402,6 +405,17 @@
         console.error('Error message:', error.message);
         return { ok: false, status: 'network error', error };
       }
+    }
+
+    // Extract controller ID from URL
+    function extractControllerId(url) {
+      // Try to extract from hostname (e.g., wled-aisle01.local -> aisle01)
+      // Or from IP (e.g., 192.168.0.75 -> controller-01)
+      // For now, use simple mapping
+      if (url.includes('wled-aisle01') || url.includes('192.168.0.75')) {
+        return 'controller-01';
+      }
+      return 'controller-01'; // Default
     }
 
     // Show toast

@@ -1,15 +1,18 @@
 {
   "name": "pick-to-light",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "WLED Pick-to-Light Controller for Fulfillment Systems",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server-mqtt.js"
   },
-  "keywords": ["wled", "pick-to-light", "fulfillment"],
+  "keywords": ["wled", "pick-to-light", "fulfillment", "mqtt"],
   "author": "",
   "license": "MIT",
   "engines": {
     "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "mqtt": "^5.3.5"
   }
 }
