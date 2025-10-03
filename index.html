@@ -378,14 +378,28 @@
 
     // Helper: POST to WLED
     async function postWLED(url, body) {
+      const fullUrl = `${url}/json/state`;
+      console.log('🔵 Sending request to:', fullUrl);
+      console.log('📦 Request body:', JSON.stringify(body, null, 2));
+
       try {
-        const response = await fetch(`${url}/json/state`, {
+        const response = await fetch(fullUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body)
         });
+
+        console.log('✅ Response status:', response.status, response.statusText);
+        console.log('📥 Response OK:', response.ok);
+
+        const responseText = await response.text();
+        console.log('📄 Response body:', responseText);
+
         return { ok: response.ok, status: response.status };
       } catch (error) {
+        console.error('❌ Fetch error:', error);
+        console.error('Error name:', error.name);
+        console.error('Error message:', error.message);
         return { ok: false, status: 'network error', error };
       }
     }
