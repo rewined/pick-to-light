@@ -376,14 +376,14 @@
       ] : [0, 0, 0];
     }
 
-    // Helper: POST to WLED
+    // Helper: POST to WLED via proxy
     async function postWLED(url, body) {
-      const fullUrl = `${url}/json/state`;
-      console.log('🔵 Sending request to:', fullUrl);
+      const proxyUrl = `/api/wled?host=${encodeURIComponent(url)}`;
+      console.log('🔵 Sending request via proxy to:', url);
       console.log('📦 Request body:', JSON.stringify(body, null, 2));
 
       try {
-        const response = await fetch(fullUrl, {
+        const response = await fetch(proxyUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body)
